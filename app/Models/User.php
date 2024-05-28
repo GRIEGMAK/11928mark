@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+    public function levels()
+    {
+        return $this->belongsToMany(Level::class, 'user_level', 'user_id', 'level_id');
+    }
 }
