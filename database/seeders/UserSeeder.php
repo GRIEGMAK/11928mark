@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
         $user1->name = 'Test1';
         $user1->email = 'test1@gmail.com';
         $user1->password = bcrypt('secret');
+        $user1->phone = ('+79230810391');
         $user1->save();
         $user1->roles()->attach($admin);
         $user1->permissions()->attach($get_all_data);

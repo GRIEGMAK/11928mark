@@ -9,16 +9,16 @@ Route::get('/', function () {
 Auth::routes();
 
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 if(!Auth::check()){
     Route::redirect('/', '/login');
 }
 
+Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
 
+Route::get('/commands', [App\Http\Controllers\HomeController::class, 'commands'])->name('commands');
 
-// if (Auth::check()) {    
-//     return redirect('/home');
-// } else {
-//     return redirect('/register');
-// }
+Route::get('/info', [App\Http\Controllers\HomeController::class, 'info'])->name('info');
+
+Route::get('/coins', [App\Http\Controllers\HomeController::class, 'coins'])->name('coins');
+

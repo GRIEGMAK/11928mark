@@ -55,6 +55,29 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $referralCode = $request->input('referral_code');
+        if ($referralCode) {
+            $referrer = User::where('referral_code', $referralCode)->first();
+            if ($referrer) {
+                $user->invited_by = $referrer->id;
+                $user->save();
+            }
+        }
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
+
+
     /**
      * Create a new user instance after a valid registration.
      *
